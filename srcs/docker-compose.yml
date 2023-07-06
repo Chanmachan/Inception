@@ -19,7 +19,7 @@ services:
     build: ./requirements/wordpress
     volumes:
       - wp_web_files:/var/www/html
-    depends_on:
+    #depends_on:
     restart: always
     networks:
       - inception_network
