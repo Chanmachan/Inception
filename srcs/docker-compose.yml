@@ -13,3 +13,18 @@ services:
     restart: always
     networks:
       - inception_network
+
+  wordpress:
+    container_name: wordpress
+    build: ./requirements/wordpress
+    volumes:
+      - wp_web_files:/var/www/html
+    depends_on:
+      -
+    restart: always
+    networks:
+      - inception_network
+
+# volumeはコンテナ間でデータを共有したり、データを永続的に残せる
+# networksはコンテナ間の通信を可能にする
+# buildはディレクトリを指定すれば、そのディレクトリにあるDockerfileを使ってイメージを作成する
