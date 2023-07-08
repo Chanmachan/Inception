@@ -33,7 +33,7 @@ volumes:
   wordpress_data:
     driver: local
     driver_opts:
-      type: none
+      # ホストマシンの特定のファイルやディレクトリをコンテナの特定の場所にマウント
+      type: bind
       device: /Users/hommayunosuke/Documents/ft.dir/Rank05/Inception/data/mysql
 #      device: /home/hyunosuk/data/mysql
-      o: bind
