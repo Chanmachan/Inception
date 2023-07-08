@@ -7,23 +7,33 @@ services:
     ports:
       - "443:443"
     volumes:
-      - wp_web_data:/var/www/html
-    depends_on:
-      - wordpress
+      - wordpress_data:/var/www/html/
+#      - /home/hyunosuk/data/:/var/www/html/
+#    depends_on:
+#      - wordpress
     restart: always
-    networks:
-      - inception_network
+#    networks:
+#      - inception_network
 
-  wordpress:
-    container_name: wordpress
-    build: ./requirements/wordpress
-    volumes:
-      - wp_web_data:/var/www/html
-    #depends_on:
-    restart: always
-    networks:
-      - inception_network
+#  wordpress:
+#    container_name: wordpress
+#    build: ./requirements/wordpress
+#    volumes:
+#      - wp_web_data:/var/www/html
+#    #depends_on:
+#    restart: always
+#    networks:
+#      - inception_network
 
-# volumeはコンテナ間でデータを共有したり、データを永続的に残せる
+# volumesはコンテナ間でデータを共有したり、データを永続的に残せる
 # networksはコンテナ間の通信を可能にする
 # buildはディレクトリを指定すれば、そのディレクトリにあるDockerfileを使ってイメージを作成する
+
+volumes:
+  wordpress_data:
+    driver: local
+    driver_opts:
+      type: none
+      device: /Users/hommayunosuke/Documents/ft.dir/Rank05/Inception/data/mysql
+#      device: /home/hyunosuk/data/mysql
+      o: bind
