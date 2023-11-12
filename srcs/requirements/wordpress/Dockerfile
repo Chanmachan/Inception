@@ -12,6 +12,9 @@ RUN apt-get update && apt-get install -y \
 
 RUN mkdir -p /run/php/
 COPY ./test.php ./var/www/html/
-COPY ./tools/docker-entrypoint.sh ./
+
+COPY ./tools/entrypoint.sh /usr/local/bin/
+RUN chmod +x /usr/local/bin/entrypoint.sh
+
 COPY ./conf ./etc/php/7.3/fpm/
-CMD ["bash", "docker-entrypoint.sh"]
+CMD ["bash", "/usr/local/bin/entrypoint.sh"]
