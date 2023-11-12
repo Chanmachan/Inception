@@ -2,28 +2,19 @@ version: '3'
 
 services:
   nginx:
-    container_name: nginx
     build: ./requirements/nginx
+    container_name: container_nginx
+    networks:
+      - inception_network
     ports:
       - "443:443"
-    volumes:
-      - wordpress_data:/var/www/html/
-#      - /home/hyunosuk/data/:/var/www/html/
-#    depends_on:
-#      - wordpress
-    restart: always
-#    networks:
-#      - inception_network
 
-#  wordpress:
-#    container_name: wordpress
-#    build: ./requirements/wordpress
-#    volumes:
-#      - wp_web_data:/var/www/html
-#    #depends_on:
-#    restart: always
-#    networks:
-#      - inception_network
+  wordpress:
+    build: ./requirements/wordpress
+    container_name: container_wordpress
+    networks:
+      - inception_network
+
 
 # volumesはコンテナ間でデータを共有したり、データを永続的に残せる
 # networksはコンテナ間の通信を可能にする
@@ -39,4 +30,8 @@ volumes:
       device: /Users/hommayunosuke/Documents/ft.dir/Rank05/Inception/data/mysql
 #      device: /home/hyunosuk/data/mysql
       # o: bindをつけないとエラーが出てしまう
+      # 冗長じゃないのかな？
       o: bind
+
+networks:
+  inception_network:
