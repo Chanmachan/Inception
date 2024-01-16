@@ -15,13 +15,14 @@ RUN mkdir -p /var/run/mysqld \
     && mv /etc/mysql/mysql.conf.d/mysqld.cnf /etc/mysql/mysql.conf.d/00_mysqld.cnf \
     && mv /etc/mysql/mysql.conf.d/mysqld_safe_syslog.cnf /etc/mysql/mysql.conf.d/01_mysqld_safe_syslog.cnf
 # ファイル名の順に読み込まれるからmvでファイル名を変更して順番を間接的に指定する
+# chownコマンドはファイルやディレクトリの所有者を変更する -Rオプションはディレクトリ内のファイルの所有者も変更する
 
 EXPOSE 3306
 
 COPY ./tools/entrypoint.sh /usr/local/bin/entrypoint.sh
 RUN chmod +x /usr/local/bin/entrypoint.sh
 
-COPY ./tools/wordpress.sql /opt/wordpress.sql
+COPY ./tools/entrypoint.sh /opt/entrypoint.sh
 RUN chmod +x /opt/wordpress.sql
 
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
