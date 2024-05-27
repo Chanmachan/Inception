@@ -11,7 +11,7 @@ RUN apt-get update && apt-get install -y \
 # php7.3-mysqlはPHPからMySQLデータベースに接続するために必要
 
 RUN mkdir -p /run/php/
-COPY ./test.php ./var/www/html/
+COPY ./test.php /var/www/html/
 
 COPY ./tools/entrypoint.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/entrypoint.sh
