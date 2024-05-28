@@ -14,6 +14,6 @@ else
     echo "Starting php-fpm7.3..."
     # -FはPHP-FPMをフォアグラウンドで実行するため
     exec php-fpm7.3 -F
-    # PID1で実行するため、UNIXシグナル(終了シグナル)を受け取りコンテナを適切に扱える
+    # execはPID1で実行するため、UNIXシグナル(終了シグナル)を受け取りコンテナを適切に扱える
     # php-fpm7.3はFastCGI Process Manager (FPM) を実行するコマンド
 fi
