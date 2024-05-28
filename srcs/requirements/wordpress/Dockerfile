@@ -12,6 +12,7 @@ RUN apt-get update && apt-get install -y \
 
 # 起動時必要
 RUN mkdir -p /run/php/
+RUN mkdir -p /var/www/html
 
 COPY ./tools/entrypoint.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/entrypoint.sh
