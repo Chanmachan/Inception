@@ -26,23 +26,24 @@ http{
 		location / {
 				# First attempt to serve request as file, then
 				# as directory, then fall back to displaying a 404.
+				autoindex on;
 				try_files $uri $uri/ =404;
 		}
 
 		# pass PHP scripts to FastCGI server
 		#
-		location ~ \.php$ {
-			# スクリプト名とパス情報を分割
-			fastcgi_split_path_info ^(.+\.php)(/.+)$;
-			include fastcgi_params;
-			# TCP/IP接続を行うFastCGIサーバーのアドレスとポート番号
-			fastcgi_pass wordpress:9000;
-			# use default script if URI is just a folder
-			fastcgi_index index.php;
-			# FastCGIサーバーが実行するスクリプトのパス
-			fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
-			# リクエストURIのパス情報 index.php/hoge なら /hoge
-			fastcgi_param PATH_INFO $fastcgi_path_info;
-		}
+# 		location ~ \.php$ {
+# 			# スクリプト名とパス情報を分割
+# 			fastcgi_split_path_info ^(.+\.php)(/.+)$;
+# 			include fastcgi_params;
+# 			# TCP/IP接続を行うFastCGIサーバーのアドレスとポート番号
+# 			fastcgi_pass wordpress:9000;
+# 			# use default script if URI is just a folder
+# 			fastcgi_index index.php;
+# 			# FastCGIサーバーが実行するスクリプトのパス
+# 			fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+# 			# リクエストURIのパス情報 index.php/hoge なら /hoge
+# 			fastcgi_param PATH_INFO $fastcgi_path_info;
+# 		}
 	}
 }

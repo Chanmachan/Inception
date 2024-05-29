@@ -1,7 +1,8 @@
 FROM debian:buster
 
 # opensslは明示的に書かなくてもいいかも
-RUN apt-get update && apt-get install -y nginx openssl
+# gettextはnginxの設定ファイルで環境変数を使うために必要
+RUN apt-get update && apt-get install -y nginx openssl gettext procps
 
 # SSL証明書の作成
 RUN mkdir -p /etc/nginx/ssl && \
@@ -23,10 +24,15 @@ RUN mkdir -p /etc/nginx/ssl && \
 ## nginxの設定
 # ランタイム中に使用される一時的なファイルの保存先
 RUN mkdir -p /run/nginx
-# nginxの設定ファイルをコピー
-COPY conf/nginx.conf /etc/nginx/nginx.conf
+# nginxの設定ファイルのテンプレートをコピー
+COPY conf/nginx.conf.template /etc/nginx/nginx.conf.template
 
 EXPOSE 443
+
+COPY ./tools/entrypoint.sh /usr/local/bin/entrypoint.sh
+RUN chmod +x /usr/local/bin/entrypoint.sh
+
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
 
 # nginxをフォアグラウンドプロセスで実行しないとコンテナが終了してしまう
 CMD ["nginx", "-g", "daemon off;"]
