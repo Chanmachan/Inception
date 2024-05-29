@@ -29,13 +29,4 @@ else
     wp core install --allow-root --path=/var/www/html/wordpress --url=$DOMAIN_NAME --title=$WORDPRESS_TITLE --admin_user=$WORDPRESS_ADMIN_USER --admin_password=$WORDPRESS_ADMIN_PASSWORD --admin_email=$WORDPRESS_ADMIN_EMAIL
 fi
 
-# PHP-FPMをフォアグラウンドで実行するため
-if pgrep php-fpm7.3 > /dev/null; then
-    echo "php-fpm7.3 is already running"
-else
-    echo "Starting php-fpm7.3..."
-    # -FはPHP-FPMをフォアグラウンドで実行するため
-    exec php-fpm7.3 -F
-    # execはPID1で実行するため、UNIXシグナル(終了シグナル)を受け取りコンテナを適切に扱える
-    # php-fpm7.3はFastCGI Process Manager (FPM) を実行するコマンド
-fi
+exec "$@"
