@@ -25,7 +25,7 @@ RUN mkdir -p /etc/nginx/ssl && \
 # ランタイム中に使用される一時的なファイルの保存先
 RUN mkdir -p /run/nginx
 # nginxの設定ファイルのテンプレートをコピー
-COPY conf/nginx.conf.template /etc/nginx/nginx.conf.template
+COPY conf/template-nginx.conf /etc/nginx/template-nginx.conf
 
 EXPOSE 443
 
