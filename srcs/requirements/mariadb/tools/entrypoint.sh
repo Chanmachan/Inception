@@ -37,8 +37,10 @@ wait_server_start
 # rootユーザーのパスワードを設定
 # データベース、ユーザー、権限を設定をまとめてしまった
 if ! mysql -u root -p"${MYSQL_ROOT_PASSWORD}" --silent; then
+  # TODO: "GRANT ALL PRIVILEGES ON *.* TO 'root'@'%';"はワイルドカードではなくmariadbとかでもいいかも
   mysql -u root << EOF
   CREATE USER 'root'@'%' IDENTIFIED BY '${MYSQL_ROOT_PASSWORD}';
+  GRANT ALL PRIVILEGES ON *.* TO 'root'@'%';
   CREATE DATABASE IF NOT EXISTS ${MYSQL_DATABASE};
   CREATE USER '${MYSQL_USER}'@'%' IDENTIFIED BY '${MYSQL_PASSWORD}';
   GRANT ALL PRIVILEGES ON ${MYSQL_DATABASE}.* TO '${MYSQL_USER}'@'%';
