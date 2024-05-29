@@ -1,21 +1,39 @@
 version: '3'
 
 services:
-  nginx:
-    build: ./requirements/nginx
-    container_name: container_nginx
+  mariadb:
+    build: ./requirements/mariadb
+    container_name: container_mariadb
+#    restart: always
     networks:
       - inception_network
-    ports:
-      - "443:443"
+    environment:
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_HOST=${MYSQL_HOST}
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+    volumes:
+      - /Users/hommayunosuke/Documents/ft.dir/Rank05/Inception/data/mysql:/var/lib/mysql
 
-  wordpress:
-    build: ./requirements/wordpress
-    container_name: container_wordpress
-    networks:
-      - inception_network
-    env_file:
-      - .env
+#  nginx:
+#    build: ./requirements/nginx
+#    container_name: container_nginx
+#    networks:
+#      - inception_network
+#    ports:
+#      - "443:443"
+#    restart: always
+#
+#  wordpress:
+#    build: ./requirements/wordpress
+#    container_name: container_wordpress
+#    networks:
+#      - inception_network
+#    env_file:
+#      - .env
+#    depends_on:
+#      - mariadb
 
 
 # volumesはコンテナ間でデータを共有したり、データを永続的に残せる
@@ -29,8 +47,8 @@ volumes:
       # ホストマシンの特定のファイルやディレクトリをコンテナの特定の場所にマウント
       # type: none o: bindでもupはできるが、怪しい
       type: bind
-      device: /Users/hommayunosuke/Documents/ft.dir/Rank05/Inception/data/mysql
-#      device: /home/hyunosuk/data/mysql
+      device: $PWD/data/mysql
+      # device: /home/hyunosuk/data/mysql
       # o: bindをつけないとエラーが出てしまう
       # 冗長じゃないのかな？
       o: bind
