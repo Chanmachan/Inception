@@ -1,5 +1,18 @@
 #!/bin/bash
 
+# mariadbコンテナが起動したか確認
+timeout=30
+while ! mysql -h $MYSQL_HOST -u root -p$MYSQL_ROOT_PASSWORD 2>/dev/null; do
+  echo "waiting for mariadb to start..."
+  sleep 1
+  timeout=$((timeout-1))
+  if [ "$timeout" -le 0 ]; then
+    echo "timeout"
+    exit 1
+  fi
+done
+
+
 if [ -d /var/www/html/wordpress/wp-config.php ]; then
     echo "wordpress is already installed"
 else
