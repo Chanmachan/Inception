@@ -2,7 +2,7 @@ FROM debian:buster
 
 # opensslは明示的に書かなくてもいいかも
 # gettextはnginxの設定ファイルで環境変数を使うために必要
-RUN apt-get update && apt-get install -y nginx openssl gettext procps
+RUN apt-get update && apt-get install -y nginx openssl gettext procps netcat
 
 # SSL証明書の作成
 RUN mkdir -p /etc/nginx/ssl && \
