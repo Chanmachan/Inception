@@ -4,17 +4,19 @@ services:
   mariadb:
     build: ./requirements/mariadb
     container_name: container_mariadb
-#    restart: always
     networks:
       - inception_network
-    environment:
-      - MYSQL_DATABASE=${MYSQL_DATABASE}
-      - MYSQL_HOST=${MYSQL_HOST}
-      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
-      - MYSQL_USER=${MYSQL_USER}
-      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+    ports:
+      - "3306:3306"
+    env_file:
+      - .env
     volumes:
-      - /Users/hommayunosuke/Documents/ft.dir/Rank05/Inception/data/mysql:/var/lib/mysql
+      - $PWD/../data/mysql:/var/lib/mysql
+#      - /Users/hommayunosuke/Documents/ft.dir/Rank05/Inception/data/mysql:/var/lib/mysql
+#       なんかこれだとうまくいかないから一旦は下手書き
+#       TODO:チェック
+#      - wordpress-data:/var/lib/mysql
+#    restart: always
 
 #  nginx:
 #    build: ./requirements/nginx
@@ -23,6 +25,11 @@ services:
 #      - inception_network
 #    ports:
 #      - "443:443"
+#    env_file:
+#      - .env
+#    depends_on:
+#      - mariadb
+#      - wordpress
 #    restart: always
 #
 #  wordpress:
@@ -30,24 +37,28 @@ services:
 #    container_name: container_wordpress
 #    networks:
 #      - inception_network
+#    ports:
+#      - "9000:80"
 #    env_file:
 #      - .env
 #    depends_on:
 #      - mariadb
+#    restart: always
 
 
 # volumesはコンテナ間でデータを共有したり、データを永続的に残せる
 # networksはコンテナ間の通信を可能にする
 # buildはディレクトリを指定すれば、そのディレクトリにあるDockerfileを使ってイメージを作成する
 
+#  _だとうまくいかなかったが、-だとうまくいった理由不明
 volumes:
-  wordpress_data:
+  wordpress-data:
     driver: local
     driver_opts:
       # ホストマシンの特定のファイルやディレクトリをコンテナの特定の場所にマウント
       # type: none o: bindでもupはできるが、怪しい
-      type: bind
-      device: $PWD/data/mysql
+      type: none
+      device: $PWD/../data/mysql
       # device: /home/hyunosuk/data/mysql
       # o: bindをつけないとエラーが出てしまう
       # 冗長じゃないのかな？
