@@ -25,4 +25,4 @@ RUN chmod +x /usr/local/bin/entrypoint.sh
 
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
 
-CMD ["mysqld", "--user=root"]
+CMD ["mysqld"]
