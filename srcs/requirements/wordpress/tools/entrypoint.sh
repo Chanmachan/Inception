@@ -1,10 +1,19 @@
-if [ -d /var/www/html/wordpress ]; then
+#!/bin/bash
+
+if [ -d /var/www/html/wordpress/wp-config.php ]; then
     echo "wordpress is already installed"
 else
+    echo "setting wordpress..."
+    # wp-cliを使ってwordpressをインストールする
+    wget -q https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
+    chmod +x wp-cli.phar
+    mv wp-cli.phar /usr/local/bin/wp
+    chmod +x /usr/local/bin/wp
+    wp core download --allow-root --path=/var/www/html/wordpress
+    echo "creating wp-config.php ..."
+    wp config create --allow-root --path=/var/www/html/wordpress --dbname=$MYSQL_DATABASE --dbuser=$MYSQL_USER --dbpass=$MYSQL_PASSWORD --dbhost=$MYSQL_HOST
     echo "installing wordpress..."
-    wget https://wordpress.org/latest.tar.gz
-    tar -xvf latest.tar.gz -C /var/www/html
-    rm -rf latest.tar.gz
+    wp core install --allow-root --path=/var/www/html/wordpress --url=$DOMAIN_NAME --title=$WORDPRESS_TITLE --admin_user=$WORDPRESS_ADMIN_USER --admin_password=$WORDPRESS_ADMIN_PASSWORD --admin_email=$WORDPRESS_ADMIN_EMAIL
 fi
 
 # PHP-FPMをフォアグラウンドで実行するため
