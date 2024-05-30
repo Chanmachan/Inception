@@ -15,7 +15,7 @@ RUN apt-get update && apt-get install -y \
 RUN mkdir -p /run/php/
 RUN mkdir -p /var/www/html
 
-WORKDIR /var/www/html
+WORKDIR /var/www/html/wordpress
 
 # testファイル
 # TODO: 本番環境では削除する
