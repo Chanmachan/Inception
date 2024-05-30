@@ -16,34 +16,38 @@ services:
 #       なんかこれだとうまくいかないから一旦は下手書き
 #       TODO:チェック
 #      - wordpress-data:/var/lib/mysql
-#    restart: always
+    restart: always
 
-#  nginx:
-#    build: ./requirements/nginx
-#    container_name: container_nginx
-#    networks:
-#      - inception_network
-#    ports:
-#      - "443:443"
-#    env_file:
-#      - .env
-#    depends_on:
-#      - mariadb
-#      - wordpress
-#    restart: always
-#
-#  wordpress:
-#    build: ./requirements/wordpress
-#    container_name: container_wordpress
-#    networks:
-#      - inception_network
-#    ports:
-#      - "9000:80"
-#    env_file:
-#      - .env
-#    depends_on:
-#      - mariadb
-#    restart: always
+  nginx:
+    build: ./requirements/nginx
+    container_name: container_nginx
+    networks:
+      - inception_network
+    ports:
+      - "443:443"
+    env_file:
+      - .env
+    depends_on:
+      - mariadb
+      - wordpress
+    volumes:
+      - $PWD/../data/wordpress:/var/www/html/wordpress
+    restart: always
+
+  wordpress:
+    build: ./requirements/wordpress
+    container_name: container_wordpress
+    networks:
+      - inception_network
+    ports:
+      - "9000:9000"
+    env_file:
+      - .env
+    depends_on:
+      - mariadb
+    volumes:
+      - $PWD/../data/wordpress:/var/www/html/wordpress
+    restart: always
 
 
 # volumesはコンテナ間でデータを共有したり、データを永続的に残せる
@@ -58,10 +62,17 @@ volumes:
       # ホストマシンの特定のファイルやディレクトリをコンテナの特定の場所にマウント
       # type: none o: bindでもupはできるが、怪しい
       type: none
-      device: $PWD/../data/mysql
+      device: $PWD/../data/wordpress
       # device: /home/hyunosuk/data/mysql
       # o: bindをつけないとエラーが出てしまう
       # 冗長じゃないのかな？
+      o: bind
+
+  mariadb-data:
+    driver: local
+    driver_opts:
+      type: none
+      device: $PWD/../data/mysql
       o: bind
 
 networks:
