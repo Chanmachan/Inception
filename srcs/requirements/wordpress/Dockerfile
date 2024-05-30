@@ -17,6 +17,10 @@ RUN mkdir -p /var/www/html
 
 WORKDIR /var/www/html
 
+# testファイル
+# TODO: 本番環境では削除する
+COPY test.php /var/www/html/wordpress/test.php
+
 COPY ./tools/entrypoint.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/entrypoint.sh
 
