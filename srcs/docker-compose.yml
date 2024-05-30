@@ -11,7 +11,8 @@ services:
     env_file:
       - .env
     volumes:
-      - $PWD/../data/mysql:/var/lib/mysql
+      - ${VOLUME_PATH}db:/var/lib/mysql
+#      - mariadb-data:/var/lib/mysql
 #      - /Users/hommayunosuke/Documents/ft.dir/Rank05/Inception/data/mysql:/var/lib/mysql
 #       なんかこれだとうまくいかないから一旦は下手書き
 #       TODO:チェック
@@ -31,7 +32,8 @@ services:
       - mariadb
       - wordpress
     volumes:
-      - $PWD/../data/wordpress:/var/www/html/wordpress
+      - ${VOLUME_PATH}wordpress:/var/www/html/wordpress
+#      - wordpress-data:/var/www/html/wordpress
     restart: always
 
   wordpress:
@@ -46,7 +48,8 @@ services:
     depends_on:
       - mariadb
     volumes:
-      - $PWD/../data/wordpress:/var/www/html/wordpress
+      - ${VOLUME_PATH}wordpress:/var/www/html/wordpress
+#      - wordpress-data:/var/www/html/wordpress
     restart: always
 
 
@@ -56,23 +59,23 @@ services:
 
 #  _だとうまくいかなかったが、-だとうまくいった理由不明
 volumes:
+  mariadb-data:
+    driver: local
+    driver_opts:
+      type: none
+      device: ${VOLUME_PATH}db
+      o: bind
+
   wordpress-data:
     driver: local
     driver_opts:
       # ホストマシンの特定のファイルやディレクトリをコンテナの特定の場所にマウント
       # type: none o: bindでもupはできるが、怪しい
       type: none
-      device: $PWD/../data/wordpress
+      device: ${VOLUME_PATH}wordpress
       # device: /home/hyunosuk/data/mysql
       # o: bindをつけないとエラーが出てしまう
       # 冗長じゃないのかな？
-      o: bind
-
-  mariadb-data:
-    driver: local
-    driver_opts:
-      type: none
-      device: $PWD/../data/mysql
       o: bind
 
 networks:
