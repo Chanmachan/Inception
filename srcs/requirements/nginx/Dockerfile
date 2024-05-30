@@ -5,11 +5,12 @@ FROM debian:buster
 RUN apt-get update && apt-get install -y nginx openssl gettext procps netcat
 
 # SSL証明書の作成
+# TODO:ドメイン名を環境変数で指定するようにする
 RUN mkdir -p /etc/nginx/ssl && \
     openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
     -keyout /etc/nginx/ssl/nginx.key \
     -out /etc/nginx/ssl/nginx.crt \
-    -subj "/C=JP/ST=Tokyo/L=Minato-ku/O=42Tokyo/OU=42cursus/CN=hyunosuk.42.fr"
+    -subj "/C=JP/ST=Tokyo/L=Minato-ku/O=42Tokyo/OU=42cursus/CN=${DOMAIN_NAME}"
 # ここで設定したパスワードは、nginxの設定ファイルで指定する
 # req: 証明書要求を行う
 # -x509: X.509証明書を作成する(x509は公開鍵証明書の標準フォーマットの名前)
