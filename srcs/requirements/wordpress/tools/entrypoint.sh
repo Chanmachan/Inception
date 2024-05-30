@@ -40,9 +40,9 @@ else
                     --admin_email=$WORDPRESS_ADMIN_EMAIL
     echo "creating general user..."
     wp user create  --allow-root \
-                      $WORDPRESS_GENERAL_USER \
-                      $WORDPRESS_EMAIL \
-                    --role=$WORDPRESS_ROLE \
+                      $WORDPRESS_USER \
+                      $WORDPRESS_USER_EMAIL \
+                    --role=$WORDPRESS_USER_ROLE \
                     --user_pass=$WORDPRESS_USER_PASSWORD
 
 
