@@ -36,14 +36,14 @@ wait_server_start
 # サーバーが起動している->設定   していない->exit
 # rootユーザーのパスワードを設定
 # データベース、ユーザー、権限を設定をまとめてしまった
-if ! mysql -u root -h"${MYSQL_HOST}" -p"${MYSQL_ROOT_PASSWORD}" -e "USE ${MYSQL_DATABASE}" --silent; then
+if ! mysql -u root -h"${MYSQL_HOST}" -p"${MYSQL_ROOT_PASSWORD}" -e "USE ${WORDPRESS_DB_NAME}" --silent; then
   # TODO: "GRANT ALL PRIVILEGES ON *.* TO 'root'@'%';"はワイルドカードではなくmariadbとかでもいいかも
   mysql -u root << EOF
   CREATE USER IF NOT EXISTS 'root'@'%' IDENTIFIED BY '${MYSQL_ROOT_PASSWORD}';
   GRANT ALL PRIVILEGES ON *.* TO 'root'@'%';
-  CREATE DATABASE IF NOT EXISTS ${MYSQL_DATABASE};
-  CREATE USER IF NOT EXISTS '${MYSQL_USER}'@'%' IDENTIFIED BY '${MYSQL_PASSWORD}';
-  GRANT ALL PRIVILEGES ON ${MYSQL_DATABASE}.* TO '${MYSQL_USER}'@'%';
+  CREATE DATABASE IF NOT EXISTS ${WORDPRESS_DB_NAME};
+  CREATE USER IF NOT EXISTS '${WORDPRESS_DB_USER}'@'%' IDENTIFIED BY '${WORDPRESS_DB_USER_PASSWORD}';
+  GRANT ALL PRIVILEGES ON ${WORDPRESS_DB_NAME}.* TO '${WORDPRESS_DB_USER}'@'%';
   FLUSH PRIVILEGES;
 EOF
 fi
