@@ -2,7 +2,12 @@ version: '3'
 
 services:
   mariadb:
-    build: ./requirements/mariadb
+    build:
+      context: ./requirements/mariadb
+      dockerfile: Dockerfile
+      args:
+        - MYSQL_UID=${MYSQL_UID}
+        - MYSQL_GID=${MYSQL_GID}
     container_name: container_mariadb
     networks:
       - inception_network
@@ -20,7 +25,9 @@ services:
     restart: always
 
   nginx:
-    build: ./requirements/nginx
+    build:
+      context: ./requirements/nginx
+      dockerfile: Dockerfile
     container_name: container_nginx
     networks:
       - inception_network
@@ -37,7 +44,9 @@ services:
     restart: always
 
   wordpress:
-    build: ./requirements/wordpress
+    build:
+      context: ./requirements/wordpress
+      dockerfile: Dockerfile
     container_name: container_wordpress
     networks:
       - inception_network

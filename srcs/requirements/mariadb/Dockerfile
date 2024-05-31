@@ -1,5 +1,8 @@
 FROM debian:buster
 
+ARG MYSQL_UID
+ARG MYSQL_GID
+
 RUN apt update && apt install -y \
     mariadb-server \
     emacs \

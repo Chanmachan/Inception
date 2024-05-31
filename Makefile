@@ -1,5 +1,7 @@
 HOST_NAME=hyunosuk.42.fr
 IP_ADDRESS=127.0.0.1
+TMP_MYSQL_UID=$$(id -u mysql)
+TMP_MYSQL_GID=$$(id -g mysql)
 
 all: setup
 	export MYSQL_UID=$$(id -u mysql)  # ホストのmysqlユーザーのUIDを取得
@@ -23,5 +25,8 @@ setup:
 	@sudo getent group mysql >/dev/null || sudo groupadd mysql  # mysqlグループが存在しない場合に作成
 	@sudo usermod -a -G mysql mysql  # mysqlユーザーをmysqlグループに追加
 	sudo chown -R mysql:mysql /home/hyunosuk/data
+	echo "\nMYSQL_UID=${TMP_MYSQL_UID}" >> srcs/.env
+	echo "MYSQL_GID=${TMP_MYSQL_GID}" >> srcs/.env
+
 
 re: clean all
