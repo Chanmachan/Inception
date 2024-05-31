@@ -7,8 +7,8 @@ all: setup
 
 clean:
 	docker-compose -f srcs/docker-compose.yml down
-	rm -rf /home/hyunosuk/data/db
-	rm -rf /home/hyunosuk/data/wordpress
+	sudo rm -rf /home/hyunosuk/data/db
+	sudo rm -rf /home/hyunosuk/data/wordpress
 
 setup:
 	@if ! grep -q "${IP_ADDRESS} ${HOST_NAME}" /etc/hosts; then \
