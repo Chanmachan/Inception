@@ -17,10 +17,6 @@ wait_server_start() {
 
 set -e
 
-# 所有権を変更user:group
-# 他のユーザーがデータベースを操作できないようにするため
-chown -R mysql:mysql /var/lib/mysql
-chown -R mysql:mysql /var/run/mysqld
 # mysqlのデータベースがない場合、初期設定
 if [ ! -d /var/lib/mysql/mysql ]; then
     echo "setting mariadb for the first time..."
