@@ -3,7 +3,7 @@ FROM debian:buster
 ARG MYSQL_UID
 ARG MYSQL_GID
 
-RUN apt update && apt install -y \
+RUN apt-get update && apt-get install -y \
     mariadb-server \
     emacs \
     procps \
