@@ -2,6 +2,8 @@ HOST_NAME=hyunosuk.42.fr
 IP_ADDRESS=127.0.0.1
 
 all: setup
+	export MYSQL_UID=$$(id -u mysql)  # ホストのmysqlユーザーのUIDを取得
+	export MYSQL_GID=$$(id -g mysql)  # ホストのmysqlグループのGIDを取得
 	docker-compose -f srcs/docker-compose.yml up
 
 clean:
@@ -17,6 +19,9 @@ setup:
 	fi
 	sudo mkdir -p /home/hyunosuk/data/db
 	sudo mkdir -p /home/hyunosuk/data/wordpress
-	#sudo chown -R mysql:mysql /home/hyunosuk/data
+	@sudo id -u mysql >/dev/null 2>&1 || sudo useradd -r -s /bin/false mysql  # mysqlユーザーが存在しない場合に作成
+	@sudo getent group mysql >/dev/null || sudo groupadd mysql  # mysqlグループが存在しない場合に作成
+	@sudo usermod -a -G mysql mysql  # mysqlユーザーをmysqlグループに追加
+	sudo chown -R mysql:mysql /home/hyunosuk/data
 
 re: clean all
