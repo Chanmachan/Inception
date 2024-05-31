@@ -6,11 +6,11 @@ TMP_MYSQL_GID=$$(id -g mysql)
 all: setup
 	export HOST_MYSQL_UID=${TMP_MYSQL_UID} && \
 	export HOST_MYSQL_GID=${TMP_MYSQL_GID} && \
-	docker-compose -f srcs/docker-compose.yml up
+	docker compose -f srcs/docker-compose.yml up
   # ホストのmysqlユーザーのUIDを取得 # ホストのmysqlユーザーのGIDを取得
 
 clean:
-	docker-compose -f srcs/docker-compose.yml down
+	docker compose -f srcs/docker-compose.yml down
 	rm -rf /home/hyunosuk/data/db
 	rm -rf /home/hyunosuk/data/wordpress
 
