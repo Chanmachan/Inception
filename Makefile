@@ -2,15 +2,16 @@ HOST_NAME=hyunosuk.42.fr
 IP_ADDRESS=127.0.0.1
 TMP_MYSQL_UID=$$(id -u mysql)
 TMP_MYSQL_GID=$$(id -g mysql)
+# TODO: docker compose??
 
 all: setup
 	export HOST_MYSQL_UID=${TMP_MYSQL_UID} && \
 	export HOST_MYSQL_GID=${TMP_MYSQL_GID} && \
-	docker compose -f srcs/docker-compose.yml up
+	docker-compose -f srcs/docker-compose.yml up
   # ホストのmysqlユーザーのUIDを取得 # ホストのmysqlユーザーのGIDを取得
 
 clean:
-	docker compose -f srcs/docker-compose.yml down
+	docker-compose -f srcs/docker-compose.yml down
 	rm -rf /home/hyunosuk/data/db
 	rm -rf /home/hyunosuk/data/wordpress
 
