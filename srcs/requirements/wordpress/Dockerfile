@@ -27,7 +27,7 @@ RUN chmod +x /usr/local/bin/entrypoint.sh
 COPY ./conf /etc/php/7.3/fpm/
 # 結局CMDと変わらないがENTRYPOINTで実装
 
-ENTRYPOINT ["bash", "/usr/local/bin/entrypoint.sh"]
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
 
 # php-fpm7.3 -F でフォアグラウンドで実行
 # php-fpm7.3はFastCGI Process Manager (FPM) を実行するコマンド
