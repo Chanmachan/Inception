@@ -9,6 +9,9 @@ RUN apt update && apt install -y \
     procps \
     && rm -rf /var/lib/apt/lists/*
 
+RUN groupmod -g ${MYSQL_GID} mysql
+RUN usermod -u ${MYSQL_UID} -g ${MYSQL_GID} mysql
+
 RUN mkdir -p /var/run/mysqld && chown -R mysql:mysql /var/run/mysqld
 RUN mkdir -p /var/lib/mysql && chown -R mysql:mysql /var/lib/mysql
 # 所有権を変更user:group

@@ -4,8 +4,8 @@ TMP_MYSQL_UID=$$(id -u mysql)
 TMP_MYSQL_GID=$$(id -g mysql)
 
 all: setup
-	export MYSQL_UID=$$(id -u mysql)  # ホストのmysqlユーザーのUIDを取得
-	export MYSQL_GID=$$(id -g mysql)  # ホストのmysqlグループのGIDを取得
+	export MYSQL_UID=${TMP_MYSQL_UID}  # ホストのmysqlユーザーのUIDを取得
+	export MYSQL_GID=${TMP_MYSQL_GID}  # ホストのmysqlユーザーのGIDを取得
 	docker-compose -f srcs/docker-compose.yml up
 
 clean:
@@ -25,8 +25,8 @@ setup:
 	@sudo getent group mysql >/dev/null || sudo groupadd mysql  # mysqlグループが存在しない場合に作成
 	@sudo usermod -a -G mysql mysql  # mysqlユーザーをmysqlグループに追加
 	sudo chown -R mysql:mysql /home/hyunosuk/data
-	echo "\nMYSQL_UID=${TMP_MYSQL_UID}" >> srcs/.env
-	echo "MYSQL_GID=${TMP_MYSQL_GID}" >> srcs/.env
+#	echo "\nMYSQL_UID=${TMP_MYSQL_UID}" >> srcs/.env
+#	echo "MYSQL_GID=${TMP_MYSQL_GID}" >> srcs/.env
 
 
 re: clean all
