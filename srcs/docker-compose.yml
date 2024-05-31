@@ -5,9 +5,9 @@ services:
     build:
       context: ./requirements/mariadb
       dockerfile: Dockerfile
-      args:
-        - MYSQL_UID=${HOST_MYSQL_UID}
-        - MYSQL_GID=${HOST_MYSQL_GID}
+#      args:
+#        - MYSQL_UID=${HOST_MYSQL_UID}
+#        - MYSQL_GID=${HOST_MYSQL_GID}
     container_name: container_mariadb
     networks:
       - inception_network
