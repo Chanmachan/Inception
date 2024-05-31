@@ -21,7 +21,7 @@ WORKDIR /var/www/html/wordpress
 # TODO: 本番環境では削除する
 #COPY test.php /var/www/html/wordpress/test.php
 
-COPY ./tools/entrypoint.sh /usr/local/bin/
+COPY ./tools/entrypoint.sh /usr/local/bin/entrypoint.sh
 RUN chmod +x /usr/local/bin/entrypoint.sh
 
 COPY ./conf /etc/php/7.3/fpm/
