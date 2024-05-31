@@ -4,9 +4,10 @@ TMP_MYSQL_UID=$$(id -u mysql)
 TMP_MYSQL_GID=$$(id -g mysql)
 
 all: setup
-	export MYSQL_UID=${TMP_MYSQL_UID}  # ホストのmysqlユーザーのUIDを取得
-	export MYSQL_GID=${TMP_MYSQL_GID}  # ホストのmysqlユーザーのGIDを取得
+	export HOST_MYSQL_UID=${TMP_MYSQL_UID} && \
+	export HOST_MYSQL_GID=${TMP_MYSQL_GID} && \
 	docker-compose -f srcs/docker-compose.yml up
+  # ホストのmysqlユーザーのUIDを取得 # ホストのmysqlユーザーのGIDを取得
 
 clean:
 	docker-compose -f srcs/docker-compose.yml down
