@@ -17,6 +17,6 @@ setup:
 	fi
 	sudo mkdir -p /home/hyunosuk/data/db
 	sudo mkdir -p /home/hyunosuk/data/wordpress
-	sudo chown -R mysql:mysql /home/hyunosuk/data
+	#sudo chown -R mysql:mysql /home/hyunosuk/data
 
 re: clean all
