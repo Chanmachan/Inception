@@ -3,10 +3,10 @@ IP_ADDRESS=127.0.0.1
 # TODO: docker compose??
 
 all: setup
-	docker-compose -f srcs/docker-compose.yml up
+	docker compose -f srcs/docker-compose.yml up -d
 
 clean:
-	docker-compose -f srcs/docker-compose.yml down
+	docker compose -f srcs/docker-compose.yml down
 	sudo rm -rf /home/hyunosuk/data/db
 	sudo rm -rf /home/hyunosuk/data/wordpress
 
