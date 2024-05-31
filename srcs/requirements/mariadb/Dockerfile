@@ -7,7 +7,7 @@ RUN apt update && apt install -y \
     && rm -rf /var/lib/apt/lists/*
 
 RUN mkdir -p /var/run/mysqld && chown -R mysql:mysql /var/run/mysqld
-RUN mkdir -p /var/lib/mysql && chown -R mysql:mysql /var/lib/mysq
+RUN mkdir -p /var/lib/mysql && chown -R mysql:mysql /var/lib/mysql
 # 所有権を変更user:group
 # 他のユーザーがデータベースを操作できないようにするため
 # ファイル名の順に読み込まれるからmvでファイル名を変更して順番を間接的に指定する
