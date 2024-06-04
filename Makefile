@@ -8,7 +8,7 @@ COMPOSE_FILE=srcs/docker-compose.yml
 
 all: up
 
-up:
+up: setup
 	docker compose -f ${COMPOSE_FILE} up -d
 
 build: setup
@@ -44,7 +44,7 @@ status:
 # if you use mac, you have to use this command
 # also you have to change VOLUME_PATH in .env file in srcs directory
 
-up_mac:
+up_mac: setup_mac
 	docker compose -f ${COMPOSE_FILE} up -d
 
 build_mac: setup_mac
