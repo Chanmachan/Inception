@@ -5,6 +5,7 @@ services:
     build:
       context: ./requirements/mariadb
       dockerfile: Dockerfile
+# てきとうな値を入れてあげないと公式をpullしてきてしまう
     image: mariadb:42
     container_name: container_mariadb
     networks:
