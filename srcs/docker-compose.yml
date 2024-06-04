@@ -14,12 +14,7 @@ services:
     env_file:
       - .env
     volumes:
-      - ${VOLUME_PATH}db:/var/lib/mysql
-#      - mariadb-data:/var/lib/mysql
-#      - /Users/hommayunosuke/Documents/ft.dir/Rank05/Inception/data/mysql:/var/lib/mysql
-#       なんかこれだとうまくいかないから一旦は下手書き
-#       TODO:チェック
-#      - wordpress-data:/var/lib/mysql
+      - mariadb-data:/var/lib/mysql
     restart: always
 
   nginx:
@@ -37,8 +32,7 @@ services:
       - mariadb
       - wordpress
     volumes:
-      - ${VOLUME_PATH}wordpress:/var/www/html/wordpress
-#      - wordpress-data:/var/www/html/wordpress
+      - wordpress-data:/var/www/html/wordpress
     restart: always
 
   wordpress:
@@ -55,16 +49,13 @@ services:
     depends_on:
       - mariadb
     volumes:
-      - ${VOLUME_PATH}wordpress:/var/www/html/wordpress
-#      - wordpress-data:/var/www/html/wordpress
+      - wordpress-data:/var/www/html/wordpress
     restart: always
 
 
 # volumesはコンテナ間でデータを共有したり、データを永続的に残せる
 # networksはコンテナ間の通信を可能にする
 # buildはディレクトリを指定すれば、そのディレクトリにあるDockerfileを使ってイメージを作成する
-
-#  _だとうまくいかなかったが、-だとうまくいった理由不明
 volumes:
   mariadb-data:
     driver: local
