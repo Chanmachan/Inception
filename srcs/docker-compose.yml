@@ -5,7 +5,7 @@ services:
     build:
       context: ./requirements/mariadb
       dockerfile: Dockerfile
-    image: mariadb
+    image: my_mariadb
     container_name: container_mariadb
     networks:
       - inception_network
@@ -26,7 +26,7 @@ services:
     build:
       context: ./requirements/nginx
       dockerfile: Dockerfile
-    image: nginx
+    image: my_nginx
     container_name: container_nginx
     networks:
       - inception_network
@@ -46,7 +46,7 @@ services:
     build:
       context: ./requirements/wordpress
       dockerfile: Dockerfile
-    image: wordpress
+    image: my_wordpress
     container_name: container_wordpress
     networks:
       - inception_network
