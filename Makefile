@@ -6,12 +6,12 @@ HOST_NAME=${LOGIN}.42.fr
 IP_ADDRESS=127.0.0.1
 COMPOSE_FILE=srcs/docker-compose.yml
 
-all: setup up
+all: up
 
 up:
 	docker compose -f ${COMPOSE_FILE} up -d
 
-build:
+build: setup
 	docker compose -f ${COMPOSE_FILE} up --build -d
 
 down:
@@ -44,10 +44,10 @@ status:
 # if you use mac, you have to use this command
 # also you have to change VOLUME_PATH in .env file in srcs directory
 
-up_mac: setup_mac
+up_mac:
 	docker compose -f ${COMPOSE_FILE} up -d
 
-build_mac:
+build_mac: setup_mac
 	docker compose -f ${COMPOSE_FILE} up --build -d
 
 down_mac:
