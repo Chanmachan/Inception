@@ -55,7 +55,7 @@ down_mac:
 
 clean_mac:
 	docker compose -f ${COMPOSE_FILE} down
-	rm -rf ./data/db ./data/wordpress
+	rm -rf ./data/db/* ./data/wordpress/*
 
 setup_mac:
 	@if ! grep -q "${IP_ADDRESS} ${HOST_NAME}" /etc/hosts; then \
