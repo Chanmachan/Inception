@@ -2,7 +2,7 @@
 
 # mariadbコンテナが起動したか確認
 timeout=30
-while ! mysql -h$MYSQL_HOST -u $WORDPRESS_DB_USER -p$WORDPRESS_DB_USER_PASSWORD 2>/dev/null; do
+while ! mariadb -h$MYSQL_HOST -u $WORDPRESS_DB_USER -p$WORDPRESS_DB_USER_PASSWORD 2>/dev/null; do
   echo "waiting for mariadb to start..."
   sleep 1
   timeout=$((timeout-1))
