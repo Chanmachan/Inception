@@ -3,7 +3,7 @@
 set -e
 
 # mysqlのデータベースがない場合、初期設定
-if [ ! -d /var/lib/mysql/mysql ]; then
+if [ ! -d /var/lib/mysql/${WORDPRESS_DB_NAME} ]; then
     echo "setting mariadb for the first time..."
     mysql_install_db --user=mysql --datadir=/var/lib/mysql
 
